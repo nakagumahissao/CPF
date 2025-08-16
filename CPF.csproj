@@ -7,4 +7,10 @@
     <Platforms>AnyCPU;x64;x86</Platforms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="CPFTest\**" />
+    <EmbeddedResource Remove="CPFTest\**" />
+    <None Remove="CPFTest\**" />
+  </ItemGroup>
+
 </Project>

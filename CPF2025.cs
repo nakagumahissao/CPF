@@ -11,17 +11,19 @@ namespace CPF
     /// Implementation of the CPF interface for the new CPF format (2025).
     /// The one that uses letters and numbers.
     /// </summary>
-    public class CPF2025 : ICPF
+    public class CPF2025(string cpf9Digits) : ICPF
     {
+        private readonly string _cpf9Digits = cpf9Digits;
+
         /// <summary>
         /// Evaluates the CPF check digit (DV) for the CPF string provided.
         /// </summary>
         /// <param name="cpf9Digits">CPF with 9 digits</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public string EvaluateCPFDV(string cpf9Digits)
+        public string EvaluateCPFDV()
         {
-            string cpf9DigitsReformatted = cpf9Digits?.Trim().ToUpperInvariant() ?? string.Empty;
+            string cpf9DigitsReformatted = _cpf9Digits?.Trim().ToUpperInvariant() ?? string.Empty;
             bool isValid = cpf9DigitsReformatted.All(c => char.IsDigit(c) || (c >= 'A' && c <= 'Z'));
 
             if (!isValid || cpf9DigitsReformatted.Length != 9)
@@ -54,15 +56,15 @@ namespace CPF
         /// <param name="firstDV">The first DV Evaluated</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public string EvaluateCPFDV2(string cpf9Digits, string firstDV)
+        public string EvaluateCPFDV2(string firstDV)
         {
             if (string.IsNullOrEmpty(firstDV) || firstDV.Length != 1)
                 throw new ArgumentException("First DV must be a digit.");
 
-            if (string.IsNullOrEmpty(cpf9Digits) || cpf9Digits.Length != 9)
+            if (string.IsNullOrEmpty(_cpf9Digits) || _cpf9Digits.Length != 9)
                 throw new ArgumentException("CPF must be a string containing exactly 9 digits/characters.");
 
-            string cpf10Digits = cpf9Digits + firstDV;
+            string cpf10Digits = _cpf9Digits + firstDV;
             cpf10Digits = cpf10Digits.Trim().ToUpperInvariant();
 
             if (!cpf10Digits.All(c => char.IsDigit(c) || (c >= 'A' && c <= 'Z')))

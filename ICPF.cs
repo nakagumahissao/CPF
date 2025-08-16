@@ -15,13 +15,13 @@ namespace CPF
         /// Evaluates the CPF check digit (DV) for the CPF string provided - Expected string, array or list containing 9 digits and or characters.
         /// </summary>
         /// <param name="cpf9Digits">The CPF in string format containing 9 digits and or characters</param>
-        public string EvaluateCPFDV(string cpf9Digits);
+        public string EvaluateCPFDV();
 
         /// <summary>
         /// Evaluates the CPF check digit (DV) for the CPF string provided - Expected string, array or list containing 9 digits plus the 10th digit.
         /// </summary>
         /// <param name="cpf10Digits">The CPF in string format containing 9 digits plus the 10th digit</param>
         /// <returns></returns>
-        public string EvaluateCPFDV2(string cpf9Digits, string firstDV);
+        public string EvaluateCPFDV2(string firstDV);
     }
 }
