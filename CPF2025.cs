@@ -13,7 +13,8 @@ namespace CPF
     /// </summary>
     public class CPF2025(string cpf9Digits) : ICPF
     {
-        private readonly string _cpf9Digits = cpf9Digits;
+        private readonly string _cpf9Digits = cpf9Digits?.Trim().ToUpperInvariant() ?? string.Empty;
+
         public string dv1 { get; private set; } = string.Empty;
         public string dv2 { get; private set; } = string.Empty;
 
@@ -25,7 +26,7 @@ namespace CPF
         /// <exception cref="ArgumentException"></exception>
         public void EvaluateCPFDV()
         {
-            string cpf9DigitsReformatted = _cpf9Digits?.Trim().ToUpperInvariant() ?? string.Empty;
+            string cpf9DigitsReformatted = _cpf9Digits;
             bool isValid = cpf9DigitsReformatted.All(c => char.IsDigit(c) || (c >= 'A' && c <= 'Z'));
 
             if (!isValid || cpf9DigitsReformatted.Length != 9)
