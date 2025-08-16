@@ -97,7 +97,7 @@ namespace CPFTest
                 string cpf = keyValuePair.Key;
                 string expectedDV = keyValuePair.Value;
                 ICPF icpf = new CPFAntigo(cpf);
-                var result = GetFinalDV(icpf, cpf);
+                var result = GetFinalDV(icpf);
                 Assert.AreEqual(expectedDV, result, $"Failed for CPF: {cpf}. Expected result: {expectedDV}, but got: {result} - Final Result: {cpf}-{result}");
             }
         }
@@ -110,27 +110,25 @@ namespace CPFTest
                 string cpf = keyValuePair.Key;
                 string expectedDV = keyValuePair.Value;
                 ICPF icpf = new CPF2025(cpf);
-                var result = GetFinalDV(icpf, cpf);
+                var result = GetFinalDV(icpf);
                 Assert.AreEqual(expectedDV, result, $"Failed for CPF: {cpf}. Expected result: {expectedDV}, but got: {result} - Final Result: {cpf}-{result}");
             }
         }
 
         // Returns the 2 check digits (DVs) for the CPF format.
-        public string GetFinalDV(ICPF icpf, string cpf9Digits)
+        public string GetFinalDV(ICPF icpf)
         {
-            string dvResult;
-
             try
             {
-                dvResult = icpf.EvaluateCPFDV();
-                dvResult += icpf.EvaluateCPFDV2(dvResult);
+                icpf.EvaluateCPFDV();
+                icpf.EvaluateCPFDV2();
             }
             catch (ArgumentException ex)
             {
                 return ex.Message;
             }
 
-            return dvResult;
+            return $"{icpf.dv1}{icpf.dv2}";
         }
 
         [TestMethod]
@@ -148,7 +146,8 @@ namespace CPFTest
 
                 try
                 {
-                    result = icpf.EvaluateCPFDV2(firstDV);
+                    icpf.EvaluateCPFDV2();
+                    result = icpf.dv1 + icpf.dv2;
                 }
                 catch (Exception ex)
                 {
@@ -173,7 +172,8 @@ namespace CPFTest
 
                 try
                 {
-                    result = icpf.EvaluateCPFDV2(firstDV);
+                    icpf.EvaluateCPFDV2();
+                    result = icpf.dv1 + icpf.dv2;
                 }
                 catch (Exception ex)
                 {

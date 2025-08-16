@@ -14,6 +14,8 @@ namespace CPF
     public class CPF2025(string cpf9Digits) : ICPF
     {
         private readonly string _cpf9Digits = cpf9Digits;
+        public string dv1 { get; private set; } = string.Empty;
+        public string dv2 { get; private set; } = string.Empty;
 
         /// <summary>
         /// Evaluates the CPF check digit (DV) for the CPF string provided.
@@ -21,7 +23,7 @@ namespace CPF
         /// <param name="cpf9Digits">CPF with 9 digits</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public string EvaluateCPFDV()
+        public void EvaluateCPFDV()
         {
             string cpf9DigitsReformatted = _cpf9Digits?.Trim().ToUpperInvariant() ?? string.Empty;
             bool isValid = cpf9DigitsReformatted.All(c => char.IsDigit(c) || (c >= 'A' && c <= 'Z'));
@@ -46,7 +48,7 @@ namespace CPF
             }
 
             int remainder = sum % 11;
-            return remainder < 2 ? "0" : (11 - remainder).ToString();
+            dv1 = remainder < 2 ? "0" : (11 - remainder).ToString();
         }
 
         /// <summary>
@@ -56,15 +58,15 @@ namespace CPF
         /// <param name="firstDV">The first DV Evaluated</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public string EvaluateCPFDV2(string firstDV)
+        public void EvaluateCPFDV2()
         {
-            if (string.IsNullOrEmpty(firstDV) || firstDV.Length != 1)
+            if (string.IsNullOrEmpty(dv1) || dv1.Length != 1)
                 throw new ArgumentException("First DV must be a digit.");
 
             if (string.IsNullOrEmpty(_cpf9Digits) || _cpf9Digits.Length != 9)
                 throw new ArgumentException("CPF must be a string containing exactly 9 digits/characters.");
 
-            string cpf10Digits = _cpf9Digits + firstDV;
+            string cpf10Digits = _cpf9Digits + dv1;
             cpf10Digits = cpf10Digits.Trim().ToUpperInvariant();
 
             if (!cpf10Digits.All(c => char.IsDigit(c) || (c >= 'A' && c <= 'Z')))
@@ -78,7 +80,17 @@ namespace CPF
             }
 
             int remainder = sum % 11;
-            return remainder < 2 ? "0" : (11 - remainder).ToString();
+            dv2 = remainder < 2 ? "0" : (11 - remainder).ToString();
+        }
+
+        public override string ToString()
+        {
+            if (string.IsNullOrEmpty(_cpf9Digits) || string.IsNullOrEmpty(dv1) || string.IsNullOrEmpty(dv2))
+            {
+                throw new InvalidOperationException("CPF is not fully evaluated.");
+            }
+
+            return $"{_cpf9Digits}-{dv1}{dv2}";
         }
     }
 }
