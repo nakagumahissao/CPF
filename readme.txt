@@ -1,0 +1,1 @@
+﻿Evaluates the CPF the old way and also, provides the first version to evaluate the mod 11 cpf format using the new way, composed by digits 0-9 and letters A-Z.
