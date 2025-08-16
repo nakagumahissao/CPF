@@ -3,11 +3,12 @@
 namespace CPF
 {
     /// <summary>
-    /// Interface for CPF (Common Programming Framework).
-    /// It serves as a generic interface for CPF-related functionalities.
-    /// There are two versions of CPF. The old one composed of only numbers and the new one
-    /// composed of letters and numbers.
-    /// By means of this interface, we can ensure that both versions are covered under a single type.
+    /// Interface para CPF (Common Programming Framework).
+    /// Serve como uma interface genérica para funcionalidades relacionadas ao CPF.
+    /// Existem duas versões do CPF: a antiga, composta apenas por números, 
+    /// e a nova, composta por letras e números.
+    /// Por meio desta interface, podemos garantir que ambas as versões 
+    /// sejam tratadas sob um único tipo.
     /// </summary>
     public interface ICPF
     {
@@ -15,16 +16,17 @@ namespace CPF
         public string dv2 { get; }
 
         /// <summary>
-        /// Evaluates the CPF check digit (DV) for the CPF string provided - Expected string, array or list containing 9 digits and or characters.
+        /// Calcula o dígito verificador (DV) do CPF fornecido.  
+        /// Espera-se uma string, array ou lista contendo exatamente 9 dígitos e/ou caracteres.
         /// </summary>
-        /// <param name="cpf9Digits">The CPF in string format containing 9 digits and or characters</param>
+        /// <param name="cpf9Digits">O CPF em formato string contendo 9 dígitos e/ou caracteres</param>
         public void EvaluateCPFDV();
 
         /// <summary>
-        /// Evaluates the CPF check digit (DV) for the CPF string provided - Expected string, array or list containing 9 digits plus the 10th digit.
+        /// Calcula o segundo dígito verificador (DV) do CPF fornecido.  
+        /// Espera-se uma string, array ou lista contendo 9 dígitos mais o 10º dígito.
         /// </summary>
-        /// <param name="cpf10Digits">The CPF in string format containing 9 digits plus the 10th digit</param>
-        /// <returns></returns>
+        /// <param name="cpf10Digits">O CPF em formato string contendo 9 dígitos mais o 10º dígito</param>
         public void EvaluateCPFDV2();
 
         public string ToString();

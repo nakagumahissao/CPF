@@ -1,1 +1,1 @@
-﻿Evaluates the CPF the old way and also, provides the first version to evaluate the mod 11 cpf format using the new way, composed by digits 0-9 and letters A-Z.
+﻿Avalia o CPF da forma antiga e também fornece a primeira versão para avaliar o formato de CPF com módulo 11 da nova forma, composto por dígitos de 0 a 9 e letras de A a Z.

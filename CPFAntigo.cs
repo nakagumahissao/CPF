@@ -8,7 +8,7 @@ using CPF;
 namespace CPF
 {
     /// <summary>
-    /// Implementation of the CPF interface for the old CPF format (Antigo).
+    /// Implementação da interface CPF para o formato antigo do CPF (Antigo).
     /// </summary>
     public class CPFAntigo(string cpf9Digits) : ICPF
     {
@@ -17,22 +17,22 @@ namespace CPF
         public string dv2 { get; private set; } = string.Empty;
 
         /// <summary>
-        /// Implementation of the CPF interface for the old CPF format (Antigo) using 9 digits and passing to the internal method EvaluateCPFDV2 and returns the full DV
+        /// Implementação da interface CPF para o formato antigo (Antigo), 
+        /// utilizando 9 dígitos e chamando o método interno EvaluateCPFDV2 
+        /// para retornar o DV completo.
         /// </summary>
-        /// <param name="cpf9Digits">The first 9 digits of the CPF</param>
-        /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         public void EvaluateCPFDV()
         {
             if (string.IsNullOrEmpty(_cpf9Digits) || _cpf9Digits.Length != 9)
             {
-                throw new ArgumentException("CPF must be a string containing exactly 9 digits.");
+                throw new ArgumentException("O CPF deve ser uma string contendo exatamente 9 dígitos.");
             }
 
-            // Check if all characters are digits
+            // Verifica se todos os caracteres são dígitos
             if (!_cpf9Digits.All(char.IsDigit))
             {
-                throw new ArgumentException("CPF must contain only digits.");
+                throw new ArgumentException("O CPF deve conter apenas dígitos.");
             }
 
             int sum = 0;
@@ -47,23 +47,20 @@ namespace CPF
         }
 
         /// <summary>
-        /// Evaluates the second check digit (DV) for the CPF string provided.
+        /// Calcula o segundo dígito verificador (DV) do CPF fornecido.
         /// </summary>
-        /// <param name="cpf9Digits">The first 9 digits of the CPF</param>
-        /// <param name="firstDV">The first digit of the DV evaluated</param>
-        /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         public void EvaluateCPFDV2()
         {
             if (string.IsNullOrEmpty(_cpf9Digits + dv1) || (_cpf9Digits + dv1).Length != 10)
             {
-                throw new ArgumentException("CPF must be a string containing exactly 10 digits.");
+                throw new ArgumentException("O CPF deve ser uma string contendo exatamente 10 dígitos.");
             }
 
-            // Check if all characters are digits
+            // Verifica se todos os caracteres são dígitos
             if (!((_cpf9Digits + dv1).All(char.IsDigit)))
             {
-                throw new ArgumentException("CPF must contain only digits.");
+                throw new ArgumentException("O CPF deve conter apenas dígitos.");
             }
 
             int sum = 0;
@@ -80,7 +77,7 @@ namespace CPF
         {
             if (string.IsNullOrEmpty(_cpf9Digits) || string.IsNullOrEmpty(dv1) || string.IsNullOrEmpty(dv2))
             {
-                throw new InvalidOperationException("CPF must be evaluated before converting to string.");
+                throw new InvalidOperationException("O CPF deve ser calculado antes de ser convertido em string.");
             }
 
             return $"{_cpf9Digits}-{dv1}{dv2}";
