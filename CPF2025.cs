@@ -47,6 +47,7 @@ namespace CPF
             }
 
             int remainder = sum % 11;
+
             dv1 = remainder < 2 ? "0" : (11 - remainder).ToString();
         }
 
